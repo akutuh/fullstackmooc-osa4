@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+Content-Type:application/json
+
+{
+  "title": "Cat blog",
+  "author": "Mika Häkkinen",
+  "url": "http://catblog8000.fi",
+  "likes": 500
+}

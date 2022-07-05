@@ -20,9 +20,18 @@ test('right ammount of blogs returned', async () => {
     .expect(200)
     .expect('Content-Type', /application\/json/)
 
-  expect(response.body).toHaveLength(2)
+  expect(response.body).toHaveLength(6)
 })
 
+test('blog identifier is id', async () => {
+  const response = await api.get('/api/blogs')
+  const contents = response._body
+  contents.forEach(blog => {
+    //expect(blog).toHaveProperty('id')
+    expect(blog['id']).toBeDefined()
+
+  })
+})
 afterAll(() => {
   mongoose.connection.close()
 })

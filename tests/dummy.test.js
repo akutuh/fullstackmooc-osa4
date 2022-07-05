@@ -99,7 +99,7 @@ describe('favorite blog', () => {
     )
   })
 
-  test('returns blog with most likes, even when two blogs have same ammount of likse', () => {
+  test('returns blog with most likes, even when two blogs shave same ammount of likse', () => {
     expect(listHelper.favoriteBlog(listWithMultipleBlogs)).toEqual(
       {
         title: 'Canonical string reduction',

@@ -4,10 +4,10 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
     "lint": "eslint .",
-    "test": "jest --verbose"
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit"
   },
   "author": "Aku Tuhkanen",
   "license": "ISC",
@@ -18,9 +18,11 @@
     "mongoose": "^6.4.2"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint": "^8.19.0",
     "jest": "^28.1.2",
-    "nodemon": "^2.0.18"
+    "nodemon": "^2.0.18",
+    "supertest": "^6.2.4"
   },
   "repository": {
     "type": "git",

@@ -76,8 +76,6 @@ test('if likes has no value it is assigned to 0', async () => {
   expect(response.body).toHaveLength(helper.initialNotes.length + 1)
   contents.forEach(blog => {
     expect(blog.likes).toBeDefined()
-    console.log(blog.title)
-    console.log(blog.likes)
   }
 
   )
@@ -107,6 +105,27 @@ test('if title and url is missing return status 400', async () => {
     .send(newBlog)
     .expect(400)
 })
+
+test('delete blog', async () => {
+  const blogsAtStart = await helper.blogsInDb()
+  const blogToDelete = blogsAtStart[0]
+
+  await api
+    .delete(`/api/blogs/${blogToDelete.id}`)
+    .expect(204)
+
+  const blogsAtEnd = await helper.blogsInDb()
+
+  expect(blogsAtEnd).toHaveLength(
+    helper.initialNotes.length - 1
+  )
+
+  const titles = blogsAtEnd.map(t => t.title)
+
+  expect(titles).not.toContain(blogToDelete.title)
+})
+
+
 afterAll(() => {
   mongoose.connection.close()
 })

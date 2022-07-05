@@ -55,6 +55,33 @@ test('blog can be added', async () => {
     'Dog blog'
   )
 })
+
+test('if likes has no value it is assigned to 0', async () => {
+  const newBlog = {
+    title: 'Dog blog',
+    author: 'Pekka Järvi',
+    url: 'http//blog.dogblog1000.com',
+    likes: undefined
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const response = await api.get('/api/blogs')
+  const contents = response._body
+
+  expect(response.body).toHaveLength(helper.initialNotes.length + 1)
+  contents.forEach(blog => {
+    expect(blog.likes).toBeDefined()
+    console.log(blog.title)
+    console.log(blog.likes)
+  }
+
+  )
+})
 afterAll(() => {
   mongoose.connection.close()
 })

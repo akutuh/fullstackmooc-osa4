@@ -82,6 +82,31 @@ test('if likes has no value it is assigned to 0', async () => {
 
   )
 })
+
+test('if title and url is missing return status 400', async () => {
+  const newBlog = {
+    author: 'Jukka Pekka',
+    likes: 2
+  }
+  /*
+  const newBlogg = {
+    title: 'Dogcat blog',
+    author: 'Pekka Järvi',
+    url: 'http//blog.dogblog1000.com',
+    likes: 2
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlogg)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+  */
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+})
 afterAll(() => {
   mongoose.connection.close()
 })

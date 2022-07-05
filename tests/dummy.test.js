@@ -50,14 +50,6 @@ const listWithMultipleBlogs = [
     url: 'http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html',
     likes: 11,
     __v: 0
-  },
-  {
-    _id: '5a422bc61b54a676234d17fc',
-    title: 'Type wars',
-    author: 'Robert C. Martin',
-    url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
-    likes: 3,
-    __v: 0
   }
 ]
 
@@ -79,7 +71,7 @@ describe('total likes', () =>  {
   })
 
   test('of a bigger list is calculated right', () => {
-    expect(listHelper.totalLikes(listWithMultipleBlogs)).toBe(45)
+    expect(listHelper.totalLikes(listWithMultipleBlogs)).toBe(42)
   })
 })
 
@@ -107,4 +99,22 @@ describe('favorite blog', () => {
         likes: 12
       })
   })
+})
+
+test('returns author with most blogs', () => {
+  try {
+    expect(listHelper.mostBlogs(listWithMultipleBlogs)).toEqual(
+      {
+        author: 'Robert C. Martin',
+        blogs: 2
+      }
+    )
+  } catch {
+    expect(listHelper.mostBlogs(listWithMultipleBlogs)).toEqual(
+      {
+        author: 'Edsger W. Dijkstra',
+        blogs: 2
+      }
+    )
+  }
 })

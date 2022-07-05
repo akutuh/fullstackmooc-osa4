@@ -37,22 +37,26 @@ const mostBlogs = (blogs) => {
 }
 
 const mostLikes = (blogs) => {
-  const result = _.countBy(blogs, 'likes')
-  console.log(result)
-  // { 'Michael Chan': 1, 'Edsger W. Dijkstra': 2, 'Robert C. Martin': 3 }
-  /*
-  var maxKey = _.maxBy(_.keys(result), function (o) { return result[o] })
 
-  let arr = Object.values(result)
-  let maxValue = Math.max(...arr)
+  //const result = _.groupBy(blogs, 'author')
+  //console.log(result)
 
-  const authorWithMostBlogs = {
-    author: maxKey,
-    blogs: maxValue
-  }
+  const authorWithMostLikes = _
+    .chain(blogs)
+    .groupBy('author')
+    .map((like, author) => {
+      return {
+        author: author,
+        likes: like.reduce((pervlike, next) => {
+          return (pervlike += next.likes)
+        }, 0),
+      }
+    })
+    .maxBy((object) => object.likes)
+    .value()
 
-  return authorWithMostBlogs
-  */
+  console.log(authorWithMostLikes)
+  return authorWithMostLikes
 }
 
 module.exports = {

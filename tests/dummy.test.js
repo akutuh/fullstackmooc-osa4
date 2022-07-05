@@ -40,7 +40,7 @@ const listWithMultipleBlogs = [
     title: 'First class tests',
     author: 'Robert C. Martin',
     url: 'http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll',
-    likes: 7,
+    likes: 10,
     __v: 0
   },
   {
@@ -48,7 +48,7 @@ const listWithMultipleBlogs = [
     title: 'TDD harms architecture',
     author: 'Robert C. Martin',
     url: 'http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html',
-    likes: 11,
+    likes: 0,
     __v: 0
   },
   {
@@ -79,7 +79,7 @@ describe('total likes', () =>  {
   })
 
   test('of a bigger list is calculated right', () => {
-    expect(listHelper.totalLikes(listWithMultipleBlogs)).toBe(44)
+    expect(listHelper.totalLikes(listWithMultipleBlogs)).toBe(36)
   })
 })
 
@@ -135,4 +135,13 @@ test('returns author with most blogs', () => {
     }
 
   }
+})
+
+test('returns author with most likes', () => {
+  expect(listHelper.mostLikes(listWithMultipleBlogs)).toEqual(
+    {
+      author: 'Edsger W. Dijkstra',
+      likes: 17
+    }
+  )
 })

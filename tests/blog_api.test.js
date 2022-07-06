@@ -185,11 +185,13 @@ describe('user test', () => {
       password: 'salainensala',
     }
 
-    await api
+    const result =await api
       .post('/api/users')
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
+
+    expect(result.body.error).toContain('username must be unique')
 
     const usersAtEnd = await helper.usersInDb()
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
@@ -203,11 +205,13 @@ describe('user test', () => {
       password: 'salainensala',
     }
 
-    await api
+    const result = await api
       .post('/api/users')
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
+
+    expect(result.body.error).toContain('username must be defined')
 
     const usersAtEnd = await helper.usersInDb()
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
@@ -222,11 +226,13 @@ describe('user test', () => {
       password: 'salainensala',
     }
 
-    await api
+    const result = await api
       .post('/api/users')
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
+
+    expect(result.body.error).toContain('username must be defined')
 
     const usersAtEnd = await helper.usersInDb()
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
@@ -241,11 +247,13 @@ describe('user test', () => {
       password: '',
     }
 
-    await api
+    const result = await api
       .post('/api/users')
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
+
+    expect(result.body.error).toContain('password must be defined')
 
     const usersAtEnd = await helper.usersInDb()
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
@@ -260,11 +268,13 @@ describe('user test', () => {
       password: null,
     }
 
-    await api
+    const result = await api
       .post('/api/users')
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
+
+    expect(result.body.error).toContain('password must be defined')
 
     const usersAtEnd = await helper.usersInDb()
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
@@ -279,11 +289,13 @@ describe('user test', () => {
       password: 'asddd',
     }
 
-    await api
+    const result = await api
       .post('/api/users')
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
+
+    expect(result.body.error).toContain('username must be atleat 3 characters long')
 
     const usersAtEnd = await helper.usersInDb()
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
@@ -298,11 +310,13 @@ describe('user test', () => {
       password: 'ds',
     }
 
-    await api
+    const result = await api
       .post('/api/users')
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
+
+    expect(result.body.error).toContain('password must be atleast 3 characters long')
 
     const usersAtEnd = await helper.usersInDb()
     expect(usersAtEnd).toHaveLength(usersAtStart.length)

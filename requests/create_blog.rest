@@ -2,8 +2,9 @@ POST http://localhost:3003/api/blogs
 Content-Type:application/json
 
 {
-  "title": "Dog blog",
-  "author": "Valtteri Mäkinen",
-  "url": "http://Dogblog9000.fi",
-  "likes": 400
+  "title": "DogsAndCats blog",
+  "author": "Aku Tuhkanen",
+  "url": "http://Dogandcatblog.fi",
+  "likes": 2,
+  "userId": "62c573b8ca32c0be62830afa"
 }

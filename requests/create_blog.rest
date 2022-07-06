@@ -1,10 +1,9 @@
 POST http://localhost:3003/api/blogs
-Content-Type:application/json
+Content-Type: application/json
 
 {
-  "title": "DogsAndCats blog",
-  "author": "Aku Tuhkanen",
-  "url": "http://Dogandcatblog.fi",
-  "likes": 2,
-  "userId": "62c573b8ca32c0be62830afa"
+  "title": "Kissa blog",
+  "author": "Jukka Pekka Karjalainen",
+  "url": "http://blog.kissa.fi",
+  "likes": 155
 }

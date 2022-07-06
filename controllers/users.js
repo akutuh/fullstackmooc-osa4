@@ -5,6 +5,29 @@ const User = require('../models/user')
 usersRouter.post('/', async (request, response) => {
   const { username, name, password } = request.body
 
+  const existingUser = await User.findOne({ username })
+  if (existingUser) {
+    return response.status(400).json({
+      error: 'username must be unique'
+    })
+  } else if (!username) {
+    return response.status(400).json({
+      error: 'username must be defined'
+    })
+  } else if (username.length < 3) {
+    return response.status(400).json({
+      error: 'username must be atleat 3 characters long'
+    })
+  } else if (!password) {
+    return response.status(400).json({
+      error: 'password must be defined'
+    })
+  } else if (password.length < 3) {
+    return response.status(400).json({
+      error: 'password must be atleast 3 characters long'
+    })
+  }
+
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(password, saltRounds)
 

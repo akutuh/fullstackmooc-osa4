@@ -4,8 +4,14 @@ const Blog = require('../models/blog')
 const User = require('../models/user')
 
 blogsRouter.get('/', async (request, response) => {
-  const getBlogs = await Blog.find({}).populate('user', { username: 1, name: 1 })
+  const getBlogs = await Blog.find({}).populate('user', { username: 1 })
   response.status(200).json(getBlogs)
+
+})
+
+blogsRouter.get('/:id', async (request, response) => {
+  const getBlog = await Blog.findById(request.params.id).populate('user', { username: 1 })
+  response.status(200).json(getBlog)
 
 })
 
@@ -39,8 +45,21 @@ blogsRouter.post('/', async (request, response) => {
 })
 
 blogsRouter.delete('/:id', async (request, response) => {
-  await Blog.findByIdAndRemove(request.params.id)
-  response.status(204).end()
+
+  const blog = await Blog.findById(request.params.id)
+
+  const decodedToken = jwt.verify(request.token, process.env.SECRET)
+  if (!request.token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+
+  if( blog.user.toString() === decodedToken.id.toString()) {
+    await Blog.findByIdAndRemove(request.params.id)
+    response.status(200).end()
+  } else {
+    return response.status(400).json({ error: 'you are not allowed to delete this blog' })
+  }
+
 })
 
 blogsRouter.put('/:id', async (request, response) => {

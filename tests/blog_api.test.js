@@ -220,6 +220,33 @@ describe('add blogs test', () => {
     expect(updatedBlogAtEnd.likes).toBe(8)
 
   })
+
+  test('cant add new blog when token is missing and returns 401', async () => {
+
+    const newBlog = {
+      title: 'Bike blog',
+      author: 'Jorma Metsä',
+      url: 'http//blog.bikes.com',
+      likes: 2
+    }
+
+    const result = await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .set('Authorization', 'Bearer ')
+      .expect(401)
+      .expect('Content-Type', /application\/json/)
+
+    console.log(result.status)
+    const response = await api.get('/api/blogs')
+
+    const titles = response.body.map(r => r.title)
+
+    expect(response.body).toHaveLength(helper.initialNotes.length)
+    expect(titles).not.toContain(
+      'Bike blog'
+    )
+  })
 })
 
 

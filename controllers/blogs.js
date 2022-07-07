@@ -21,9 +21,8 @@ blogsRouter.post('/', middleware.userExtractor , async (request, response) => {
   const body = request.body
   const blog1 = new Blog(request.body)
   if(!blog1.title || !blog1.url){
-    response.status(400).json(blog1)
+    return response.status(400).json(blog1)
   }
-
 
   const user = await User.findById(request.decodedToken.id)
   const blog = new Blog({
